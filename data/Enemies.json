@@ -1,0 +1,6 @@
+[
+null,
+{"id":1,"actions":[],"battlerHue":0,"battlerName":"","dropItems":[{"dataId":1,"denominator":1,"kind":0},{"dataId":1,"denominator":1,"kind":0},{"dataId":1,"denominator":1,"kind":0}],"exp":0,"traits":[{"code":22,"dataId":1,"value":1}],"gold":0,"name":"Dummy","note":"<AIType:none>\n<respawn:60>","params":[2000,0,1,1,1,1,1,1]},
+{"id":2,"actions":[{"conditionParam1":0,"conditionParam2":0,"conditionType":0,"rating":5,"skillId":2}],"battlerHue":0,"battlerName":"","dropItems":[{"kind":1,"dataId":1,"denominator":3},{"dataId":1,"denominator":1,"kind":0},{"dataId":1,"denominator":1,"kind":0}],"exp":10,"traits":[{"code":31,"dataId":1,"value":0}],"gold":10,"name":"Bat","note":"<respawn:240>","params":[100,0,10,10,10,10,10,10]},
+{"id":3,"actions":[],"battlerHue":0,"battlerName":"","dropItems":[{"dataId":1,"denominator":1,"kind":0},{"dataId":1,"denominator":1,"kind":0},{"dataId":1,"denominator":1,"kind":0}],"exp":0,"traits":[],"gold":0,"name":"Breakable","note":"<AIType:none>\n<noPopup>\n<noHPBar>","params":[1,0,10,10,10,10,10,10]}
+]
