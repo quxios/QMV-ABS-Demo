@@ -2748,7 +2748,12 @@ function Skill_Sequencer() {
   };
 
   Game_CharacterBase.prototype.updateABS = function() {
-    if (this.battler().hp <= 0) return this.onDeath();
+    if (this.battler().isDead()) {
+      if (!this._isDead) {
+        this.onDeath();
+      }
+      return;
+    }
     this.updateSkills();
     this.battler().updateABS();
   };
@@ -2969,7 +2974,6 @@ function Skill_Sequencer() {
   };
 
   Game_Player.prototype.onDeath = function() {
-    if (this._isDead) return;
     this.clearABS();
     this._isDead = true;
     SceneManager.goto(Scene_Gameover);
@@ -3174,10 +3178,7 @@ function Skill_Sequencer() {
   };
 
   Game_Event.prototype.battler = function() {
-    if (this._battlerId) {
-      return this._battler;
-    }
-    return null;
+    return this._battler;
   };
 
   Game_Event.prototype.setupBattler = function() {
@@ -3256,11 +3257,12 @@ function Skill_Sequencer() {
   };
 
   Game_Event.prototype.updateABS = function() {
-    if (!this.page() || $gameSystem.isDisabled(this._mapId, this._eventId)) return;
+    if ($gameSystem.isDisabled(this._mapId, this._eventId)) return;
     Game_CharacterBase.prototype.updateABS.call(this);
-    if (!this._isDead && this.isNearTheScreen()) {
-      this.updateAI(this._aiType);
-    } else if (this._respawn >= 0) {
+    if (this.page() && !this._isDead && this.isNearTheScreen()) {
+      return this.updateAI(this._aiType);
+    }
+    if (this._respawn >= 0) {
       this.updateRespawn();
     }
   };
@@ -3453,7 +3455,6 @@ function Skill_Sequencer() {
   };
 
   Game_Event.prototype.onDeath = function() {
-    if (this._isDead) return;
     if (this._onDeath) {
       try {
         eval(this._onDeath);
