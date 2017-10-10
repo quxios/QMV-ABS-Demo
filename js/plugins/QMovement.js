@@ -242,7 +242,7 @@ Imported.QMovement = '1.4.3';
  *  <colliders>
  *  default: box, 48, 48
  *  collision: circle, 24, 24, 12, 12
- *  interaction: box: 32, 32, 8, 8
+ *  interaction: box, 32, 32, 8, 8
  *  </colliders>
  * ~~~
  * ----------------------------------------------------------------------------
@@ -517,6 +517,10 @@ Imported.QMovement = '1.4.3';
  * ============================================================================
  * ## Links
  * ============================================================================
+ * Formated Help:
+ *
+ *  https://quxios.github.io/#/plugins/QMovement
+ *
  * RPGMakerWebs:
  *
  *  http://forums.rpgmakerweb.com/index.php?threads/qplugins.73023/

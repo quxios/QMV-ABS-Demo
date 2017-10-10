@@ -167,10 +167,13 @@ Imported.QPathfind = '1.4.6';
  *  qPathfind 1 chase 0
  *  qPathfind e1 chase p
  *  qPathfind event1 chase player1
- * ~~~
  * ============================================================================
  * ## Links
  * ============================================================================
+ * Formated Help:
+ *
+ *  https://quxios.github.io/#/plugins/QPathfind
+ *
  * RPGMakerWebs:
  *
  *  http://forums.rpgmakerweb.com/index.php?threads/qplugins.73023/
