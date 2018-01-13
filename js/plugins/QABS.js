@@ -9,14 +9,14 @@ if (!Imported.QMovement || !QPlus.versionCheck(Imported.QMovement, '1.4.0')) {
   throw new Error('Error: QABS requires QMovement 1.4.0 or newer to work.');
 }
 
-Imported.QABS = '1.6.1';
+Imported.QABS = '1.6.3';
 
 //=============================================================================
 /*:
  * @plugindesc <QABS>
  * Action Battle System for QMovement
- * @version 1.6.1
- * @author Quxios  | Version 1.6.1
+ * @version 1.6.3
+ * @author Quxios  | Version 1.6.3
  * @site https://quxios.github.io/
  * @updateurl https://quxios.github.io/data/pluginsMin.json
  *
@@ -142,12 +142,11 @@ Imported.QABS = '1.6.1';
  * your simple rpg maker action battle system. Using this plugin you can
  * create more advance like action games.
  *
- * **_Note that the help section is still in development and may be missing
- * some info! Sorry!_**
- *
- * For a demo visit the steamwork shop:
- *
- * http://steamcommunity.com/sharedfiles/filedetails/?id=952886994
+ * For a demo visit the steamwork shop or Github repo
+ * - http://steamcommunity.com/sharedfiles/filedetails/?id=952886994
+ * - https://github.com/quxios/QMV-ABS-Demo
+ * 
+ * **_Plugin files in the repo are always kept up to date_**
  * ============================================================================
  * ## Is this for you?
  * ============================================================================
@@ -234,6 +233,7 @@ Imported.QABS = '1.6.1';
  * keys 1 through 9 in the parameters and a class changes the skills for skill
  * keys 1, 3, 4. The over all skill keys will be, 1, 3, 4 from the class and
  * the rest are from the default values.
+ * 
  * ----------------------------------------------------------------------------
  * **Weapon Skill keys**
  * ----------------------------------------------------------------------------
@@ -262,6 +262,7 @@ Imported.QABS = '1.6.1';
  * Weapon skill keys take top priority, so they will replace both class keys
  * and the default keys! This example will replace skill key 1 with the skill
  * id 3
+ * 
  * ----------------------------------------------------------------------------
  * **Override Skill keys**
  * ----------------------------------------------------------------------------
@@ -293,6 +294,7 @@ Imported.QABS = '1.6.1';
  * ~~~
  * qabs override 1 -1
  * ~~~
+ * 
  * ============================================================================
  * ## Skills
  * ============================================================================
@@ -646,6 +648,7 @@ Imported.QABS = '1.6.1';
  *      Animation will only play once if the skill hit multiple targets
  *    - When 1, the animation will play on the target
  *      Animation will play on all targets it hits
+ * 
  * ============================================================================
  * ## Enemies
  * ============================================================================
@@ -656,6 +659,7 @@ Imported.QABS = '1.6.1';
  * <enemy:X>
  * ~~~
  * Where X is the ID of the enemy in the database.
+ * 
  * ----------------------------------------------------------------------------
  * **Enemy Database**
  * ----------------------------------------------------------------------------
@@ -718,6 +722,7 @@ Imported.QABS = '1.6.1';
  * ~~~
  * <autoLoot>
  * ~~~
+ * 
  * ============================================================================
  * ## Disabling QABS
  * ============================================================================
@@ -757,6 +762,7 @@ Imported.QABS = '1.6.1';
  *
  * **_Note_** that disabling ABS doesn't remove it from the event, it just "pauses"
  * it until it's re-enabled.
+ * 
  * ============================================================================
  * ## States
  * ============================================================================
@@ -770,6 +776,7 @@ Imported.QABS = '1.6.1';
  * the character can't use any skills until the state is removed.
  * ~~~
  * <stun>
+ * 
  * ~~~
  * ============================================================================
  * ## Popups
@@ -795,6 +802,7 @@ Imported.QABS = '1.6.1';
  * ============================================================================
  * This section is for user created stuff. If you created a video, game, tutorial,
  * or an addon for QABS feel free to send me a link and I'll showcase it here!
+ * 
  * ============================================================================
  * ## Links
  * ============================================================================
@@ -2749,12 +2757,6 @@ function Skill_Sequencer() {
     if (this === $gameParty.leader()) $gameSystem.loadClassABSKeys();
   };
 
-  var Alias_Game_Actor_initEquips = Game_Actor.prototype.initEquips;
-  Game_Actor.prototype.initEquips = function(equips) {
-    Alias_Game_Actor_initEquips.call(this, equips);
-    if (this === $gameParty.leader()) this.initWeaponSkills();
-  };
-
   Game_Actor.prototype.initWeaponSkills = function() {
     var equips = this._equips;
     for (var i = 0; i < equips.length; i++) {
@@ -3507,12 +3509,10 @@ function Skill_Sequencer() {
   };
 
   Game_Event.prototype.canSeeThroughChara = function(chara) {
-    if (this._battler) {
-      if (chara.team() === this.team()) {
-        return true;
-      } else if (this._isDead || (chara.battler() && chara.battler().isDead())) {
-        return true;
-      }
+    if (typeof chara.team === 'function' && chara.team() === this.team()) {
+      return true;
+    } else if (this._isDead || (typeof chara.battler === 'function' && chara.battler() && chara.battler().isDead())) {
+      return true;
     }
     return Game_CharacterBase.prototype.canSeeThroughChara.call(this, chara);
   };
